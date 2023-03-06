@@ -23,7 +23,7 @@ class Setting
     }
     public void Save()
     {
-        FileStream fs = new FileStream("setting.txt", FileMode.Create, FileAccess.Write, FileShare.None);
+        FileStream fs = new FileStream("Access/setting.txt", FileMode.Create, FileAccess.Write, FileShare.None);
         StreamWriter sw = new StreamWriter(fs);
         foreach (var item in settings)
         {
@@ -36,7 +36,7 @@ class Setting
     {
         try
         {
-            string[] lines = System.IO.File.ReadAllLines("setting.txt");
+            string[] lines = System.IO.File.ReadAllLines("Access/setting.txt");
             foreach (string line in lines)
             {
                 string[] parts = line.Split(new char[] { '=' }, 2);

@@ -7,7 +7,7 @@ class Translation
     {
         try
         {
-            string[] lines = System.IO.File.ReadAllLines("Translation/zh-cn.txt");
+            string[] lines = System.IO.File.ReadAllLines("Access/Translation/zh-cn.txt");
             foreach (string line in lines)
             {
                 string[] parts = line.Split(new char[] { '=' }, 2);
@@ -24,7 +24,7 @@ class Translation
     {
         try
         {
-            string[] lines = System.IO.File.ReadAllLines("Translation/" + name + ".txt");
+            string[] lines = System.IO.File.ReadAllLines("Access/Translation/" + name + ".txt");
             foreach (string line in lines)
             {
                 string[] parts = line.Split(new char[] { '=' }, 2);
