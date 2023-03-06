@@ -1,0 +1,7 @@
+setting.load.OK=设置加载完成
+Translation.cannotFind=无法找到{0}语言文件
+main.welcome=欢迎使用BugHome服务端
+main.starting=正在启动服务，请稍候
+main.started=启动完成
+Translation.ParameterError=翻译文件参数错误
+Translation.Error=???

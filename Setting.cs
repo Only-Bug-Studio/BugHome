@@ -5,20 +5,20 @@ class Setting
     Logger logger = new Logger("Setting");
     public Setting()
     {
-        settings["language"]="zh-cn";
+        settings["language"] = "zh-cn";
     }
-    public void SetValue(string key,string value)
+    public void SetValue(string key, string value)
     {
-        settings[key]=value;
+        settings[key] = value;
     }
     public string GetValue(string key)
     {
         string a;
-        if(settings.TryGetValue(key,out a))
+        if (settings.TryGetValue(key, out a))
         {
             return a;
         }
-        logger.Log(LogLevel.Error,key+" can't find");
+        logger.Log(LogLevel.Error, key + " can't find");
         return "";
     }
     public void Save()
@@ -27,7 +27,7 @@ class Setting
         StreamWriter sw = new StreamWriter(fs);
         foreach (var item in settings)
         {
-            sw.WriteLine(item.Key+"="+item.Value);
+            sw.WriteLine(item.Key + "=" + item.Value);
         }
         sw.Close();
         fs.Close();
@@ -40,15 +40,15 @@ class Setting
             foreach (string line in lines)
             {
                 string[] parts = line.Split(new char[] { '=' }, 2);
-                settings[parts[0]]=parts[1];
+                settings[parts[0]] = parts[1];
             }
         }
-        catch(Exception e)
+        catch//(Exception e)
         {
-            logger.Log(LogLevel.Warn,"Can't find setting file");
+            logger.Log(LogLevel.Warn, "Can't find setting file");
             Save();
         }
-        Translate.LoadTranslate(settings["language"]);
-        logger.Log(LogLevel.Info,Translate.GetTranslate("setting.load.OK"));
+        Translation.LoadTranslation(settings["language"]);
+        logger.Log(LogLevel.Info, Translation.GetTranslation("setting.load.OK"));
     }
 }

@@ -4,9 +4,9 @@
     static Logger logger = new Logger("Main");
     static void Main(string[] args)
     {
-        logger.Log(LogLevel.Info,"Loading");
+        logger.Log(LogLevel.Info, "Loading");
         setting.Load();
-        logger.Log(LogLevel.Info,Translate.GetTranslate("main.welcome"));
-        logger.Log(LogLevel.Info,Translate.GetTranslate("main.starting"));
+        logger.Log(LogLevel.Info, Translation.GetTranslation("main.welcome"));
+        logger.Log(LogLevel.Info, Translation.GetTranslation("main.starting"));
     }
 }
