@@ -40,6 +40,8 @@ class Setting
             foreach (string line in lines)
             {
                 string[] parts = line.Split(new char[] { '=' }, 2);
+                parts[0]=parts[0].Trim();
+                parts[1]=parts[1].Trim();
                 settings[parts[0]] = parts[1];
             }
         }
