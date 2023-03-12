@@ -1,4 +1,5 @@
-﻿class Program
+﻿using System.Text;
+class Program
 {
     static Setting setting = new Setting();
     static Logger logger = new Logger("Main");

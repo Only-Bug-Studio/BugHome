@@ -5,3 +5,7 @@ main.starting = 正在启动服务，请稍候
 main.started = 启动完成
 Translation.ParameterError = 翻译文件参数错误
 Translation.Error = ???
+HttpClientMessage.empty = 传入的字节为空
+HttpClientMessage.notUTF8 = 传入的字节非UTF8编码
+HttpClientMessage.notHttpMessage = 传入的字节不是http信息
+HttpClientMessage.verb.unknown = 未知的的HTTP方法{0}

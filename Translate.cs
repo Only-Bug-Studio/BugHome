@@ -5,18 +5,7 @@ class Translation
     static Logger logger = new Logger("Translation");
     public static void TranslationInit()
     {
-        try
-        {
-            string[] lines = System.IO.File.ReadAllLines("Access/Translation/zh-cn.txt");
-            foreach (string line in lines)
-            {
-                string[] parts = line.Split(new char[] { '=' }, 2);
-                parts[0]=parts[0].Trim();
-                parts[1]=parts[1].Trim();
-                TS[parts[0]] = parts[1];
-            }
-        }
-        catch//(Exception e)
+        if (!Tools.ReadConfig("Access/Translation/zh-cn.txt", new char[] { '=' }, 2, out TS))
         {
             logger.Log(LogLevel.Fatal, "Can't find zh-cn Translation file!");
         }
@@ -24,18 +13,7 @@ class Translation
     }
     public static void LoadTranslation(string name)
     {
-        try
-        {
-            string[] lines = System.IO.File.ReadAllLines("Access/Translation/" + name + ".txt");
-            foreach (string line in lines)
-            {
-                string[] parts = line.Split(new char[] { '=' }, 2);
-                parts[0]=parts[0].Trim();
-                parts[1]=parts[1].Trim();
-                TS[parts[0]] = parts[1];
-            }
-        }
-        catch//(Exception e)
+        if (!Tools.ReadConfig("Access/Translation/" + name + ".txt", new char[] { '=' }, 2, out TS))
         {
             logger.Log(LogLevel.Error, GetTranslation("Translation.cannotFind", name));
         }

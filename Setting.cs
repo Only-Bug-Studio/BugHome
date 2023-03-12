@@ -5,7 +5,7 @@ class Setting
     Logger logger = new Logger("Setting");
     public Setting()
     {
-        settings["language"] = "zh-cn";
+
     }
     public void SetValue(string key, string value)
     {
@@ -34,22 +34,11 @@ class Setting
     }
     public void Load()
     {
-        try
+        if (!Tools.ReadConfig("Access/setting.txt", new char[] { '=' }, 2, out settings))
         {
-            string[] lines = System.IO.File.ReadAllLines("Access/setting.txt");
-            foreach (string line in lines)
-            {
-                string[] parts = line.Split(new char[] { '=' }, 2);
-                parts[0]=parts[0].Trim();
-                parts[1]=parts[1].Trim();
-                settings[parts[0]] = parts[1];
-            }
+            logger.Log(LogLevel.Fatal, "Can't find setting file");
         }
-        catch//(Exception e)
-        {
-            logger.Log(LogLevel.Warn, "Can't find setting file");
-            Save();
-        }
+
         Translation.LoadTranslation(settings["language"]);
         logger.Log(LogLevel.Info, Translation.GetTranslation("setting.load.OK"));
     }
