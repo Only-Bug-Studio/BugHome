@@ -208,7 +208,11 @@ class HttpClientMessage
         }
         string _HEAD = $"{startLine}\n{headers}\n";
         byte[] HEAD = Encoding.UTF8.GetBytes(_HEAD);
-        byte[] message = HEAD.Concat(Body).ToArray();
-        return message;
+        if (HaveBody)
+        {
+            byte[] message = HEAD.Concat(Body).ToArray();
+            return message;
+        }
+        return HEAD;
     }
 }
