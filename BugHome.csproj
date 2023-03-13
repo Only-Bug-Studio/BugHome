@@ -6,9 +6,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Nancy" Version="2.0.0" />
-  </ItemGroup>
-
 </Project>
