@@ -1,0 +1,17 @@
+setting.load.OK = 设置加载完成
+Translation.cannotFind = 无法找到{0}语言文件
+main.welcome = 欢迎使用BugHome服务端
+main.starting = 正在启动服务，请稍候
+main.started = 启动完成
+Translation.ParameterError = 翻译文件参数错误
+Translation.Error = ???
+HttpClientMessage.empty = 传入的字节为空
+HttpClientMessage.notUTF8 = 传入的字节非UTF8编码
+HttpClientMessage.notHttpMessage = 传入的字节不是http信息
+HttpClientMessage.verb.unknown = 未知的的HTTP方法{0}
+HttpServerMessage.empty = 传入的字节为空
+HttpServerMessage.notUTF8 = 传入的字节不是http信息
+HttpServerMessage.notHttpMessage = 传入的字节不是http信息
+main.end = 程序结束了
+Web.portNotNum = 传入的端口非数字
+Web.Open = 网站服务已开启
