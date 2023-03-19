@@ -18,6 +18,7 @@ class Web
                 bytes = client.Receive(recvBytes, recvBytes.Length, 0);
                 HttpClientMessage cm = new HttpClientMessage(recvBytes);
                 HttpServerMessage sm = new HttpServerMessage();
+                sm.SetHeaderValue("Content-Length", "5");
                 sm.SetBody(Encoding.UTF8.GetBytes("hello"));
                 client.Send(sm.GetBytes());
             }
@@ -32,7 +33,7 @@ class Web
         }
         catch
         {
-            
+
         }
         return;
     }
