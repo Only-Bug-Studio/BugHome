@@ -206,7 +206,8 @@ class HttpClientMessage
             string y = header.Value;
             headers += $"{x}: {y}\r\n";
         }
-        string _HEAD = $"{startLine}\r\n{headers}\r\n\r\n";
+        //不用两个\n\\r 一个就能空行
+        string _HEAD = $"{startLine}\r\n{headers}\r\n";
         byte[] HEAD = Encoding.UTF8.GetBytes(_HEAD);
         if (HaveBody)
         {
