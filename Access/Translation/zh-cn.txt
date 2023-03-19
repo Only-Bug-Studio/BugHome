@@ -12,3 +12,6 @@ HttpClientMessage.verb.unknown = 未知的的HTTP方法{0}
 HttpServerMessage.empty = 传入的字节为空
 HttpServerMessage.notUTF8 = 传入的字节不是http信息
 HttpServerMessage.notHttpMessage = 传入的字节不是http信息
+main.end = 程序结束了
+Web.portNotNum = 传入的端口非数字
+Web.Open = 网站服务已开启

@@ -168,9 +168,9 @@ class HttpServerMessage
         {
             string x = header.Key;
             string y = header.Value;
-            headers += $"{x}: {y}\n";
+            headers += $"{x}: {y}\r\n";
         }
-        string _HEAD = $"{startLine}\n{headers}\n";
+        string _HEAD = $"{startLine}\r\n{headers}\r\n\r\n";
         byte[] HEAD = Encoding.UTF8.GetBytes(_HEAD);
         if (HaveBody)
         {
