@@ -10,14 +10,31 @@ class Web
         Socket client = x as Socket;
         byte[] recvBytes = new byte[1024 * 5];
         int bytes;
+
         while (true)
         {
-            bytes = client.Receive(recvBytes, recvBytes.Length, 0);
-            HttpClientMessage cm = new HttpClientMessage(recvBytes);
-            HttpServerMessage sm = new HttpServerMessage();
-            sm.SetBody(Encoding.UTF8.GetBytes("hello"));
-            client.Send(sm.GetBytes());
+            try
+            {
+                bytes = client.Receive(recvBytes, recvBytes.Length, 0);
+                HttpClientMessage cm = new HttpClientMessage(recvBytes);
+                HttpServerMessage sm = new HttpServerMessage();
+                sm.SetBody(Encoding.UTF8.GetBytes("hello"));
+                client.Send(sm.GetBytes());
+            }
+            catch
+            {
+                break;
+            }
         }
+        try
+        {
+            client.Close();
+        }
+        catch
+        {
+            
+        }
+        return;
     }
     public static void WebMain()
     {
