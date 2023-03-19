@@ -169,7 +169,11 @@ class HttpClientMessage
         if (newBody == null || newBody.Length == 0)
             HaveBody = false;
         else
+        {
             HaveBody = true;
+            SetHeaderValue("Content-Length", newBody.Length.ToString());
+        }
+
         Body = newBody;
     }
     public bool IsHaveBody()
@@ -178,7 +182,7 @@ class HttpClientMessage
     }
     public void SetBody(string newBody)
     {
-        Body = Encoding.UTF8.GetBytes(newBody);
+        SetBody(Encoding.UTF8.GetBytes(newBody));
     }
     public string GetTarget()
     {
