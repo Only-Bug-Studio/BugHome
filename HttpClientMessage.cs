@@ -169,7 +169,10 @@ class HttpClientMessage
         if (newBody == null || newBody.Length == 0)
             HaveBody = false;
         else
+        {
             HaveBody = true;
+            SetHeaderValue("Content-Length", newBody.Length.ToString());
+        }
         Body = newBody;
     }
     public bool IsHaveBody()
@@ -178,7 +181,7 @@ class HttpClientMessage
     }
     public void SetBody(string newBody)
     {
-        Body = Encoding.UTF8.GetBytes(newBody);
+        SetBody(Encoding.UTF8.GetBytes(newBody));
     }
     public string GetTarget()
     {
@@ -206,7 +209,8 @@ class HttpClientMessage
             string y = header.Value;
             headers += $"{x}: {y}\r\n";
         }
-        string _HEAD = $"{startLine}\r\n{headers}\r\n\r\n";
+        //不用两个\n\\r 一个就能空行
+        string _HEAD = $"{startLine}\r\n{headers}\r\n";
         byte[] HEAD = Encoding.UTF8.GetBytes(_HEAD);
         if (HaveBody)
         {
