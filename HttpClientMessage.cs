@@ -173,7 +173,6 @@ class HttpClientMessage
             HaveBody = true;
             SetHeaderValue("Content-Length", newBody.Length.ToString());
         }
-
         Body = newBody;
     }
     public bool IsHaveBody()
