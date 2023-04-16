@@ -64,10 +64,39 @@ class Connect
             try
             {
                 client.Read(buffer);
-                client.Write(WebServer(new HttpClientMessage(buffer)).GetBytes());
+                HttpCommand command = WebServer(buffer, null);
+                client.Write(command.re);
+                if (command.type == HttpCommandType.Close)
+                {
+                    logger.Log(LogLevel.Debug, "已断开连接");
+                    client.Close();
+                    break;
+                }
+                bool close = false;
+                while (true)
+                {
+                    if (command.type == HttpCommandType.Close)
+                    {
+                        close = true;
+                        client.Close();
+                        break;
+                    }
+                    if (command.type != HttpCommandType.GO_ON)
+                    {
+                        break;
+                    }
+                    command = WebServer(buffer, command.data);
+                    client.Write(command.re);
+                }
+                if (close)
+                {
+                    logger.Log(LogLevel.Debug, "已断开连接");
+                    break;
+                }
             }
             catch
             {
+                logger.Log(LogLevel.Debug, "已断开连接(error)");
                 break;
             }
         }
@@ -98,17 +127,55 @@ class Connect
             try
             {
                 sslStream.Read(buffer);
-                sslStream.Write(WebServer(new HttpClientMessage(buffer)).GetBytes());
+                HttpCommand command = WebServer(buffer, null);
+                sslStream.Write(command.re);
+                bool close = false;
+                if (command.type == HttpCommandType.Close)
+                {
+                    logger.Log(LogLevel.Debug, "已断开连接");
+                    client.Close();
+                    break;
+                }
+                while (true)
+                {
+                    if (command.type == HttpCommandType.Close)
+                    {
+                        close = true;
+                        client.Close();
+                        break;
+                    }
+                    if (command.type != HttpCommandType.GO_ON)
+                    {
+                        break;
+                    }
+                    command = WebServer(buffer, command.data);
+                    sslStream.Write(command.re);
+                }
+                if (close)
+                {
+                    logger.Log(LogLevel.Debug, "已断开连接");
+                    break;
+                }
             }
             catch
             {
+                logger.Log(LogLevel.Debug, "已断开连接(error)");
                 break;
             }
         }
         return;
     }
-    public HttpServerMessage WebServer(HttpClientMessage cl)
+    public HttpCommand WebServer(byte[] x, BreakpointData? _data)
     {
+        bool HaveData = false;
+        BreakpointData data;
+        if (_data != null)
+        {
+            HaveData = true;
+            data = _data;
+        }
+        HttpCommand command = new HttpCommand();
+        HttpClientMessage cl = new HttpClientMessage(x);
         HttpServerMessage re = new HttpServerMessage();
         if (Program.setting.GetValue("usingTLS") == "true")
         {
@@ -121,7 +188,9 @@ class Connect
                     string host = cl.GetHeaderValue("Host");
                     string[] hs = host.Split(':');
                     re.SetHeaderValue("Location", $"https://{hs[0]}:{Program.setting.GetValue("https_port")}");
-                    return re;
+                    command.type = HttpCommandType.Close;
+                    command.re = re.ToBytes();
+                    return command;
                 }
             }
         }
@@ -129,13 +198,21 @@ class Connect
         re.SetStatusText("OK");
         re.SetBody($"你的IP地址是:{IP.ToString()}");
         re.SetHeaderValue("Content-Type", "text/plain; charset=utf-8");
+        command.type = HttpCommandType.OK;
         if (!cl.Parsed_successfully)
         {
             re.SetStatusCode(500);
             re.SetStatusText("Internal Server Error");
             re.SetHeaderValue("Content-Type", "text/plain; charset=utf-8");
+            re.SetHeaderValue("Connection", "close");
             re.SetBody("解析错误");
+            command.type = HttpCommandType.Close;
         }
-        return re;
+        if (cl.GetHeaderValue("Connection") == "close")
+        {
+            command.type = HttpCommandType.Close;
+        }
+        command.re = re.ToBytes();
+        return command;
     }
 }
