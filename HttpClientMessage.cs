@@ -17,6 +17,7 @@ class HttpClientMessage
     {
         return;
     }
+    public bool Parsed_successfully = false;
     public HttpClientMessage(byte[] bytes)
     {
         string message = "";
@@ -91,6 +92,11 @@ class HttpClientMessage
                 if (words.Length != 3)
                 {
                     logger.Log(LogLevel.Error, Translation.GetTranslation("HttpClientMessage.notHttpMessage"));
+                    foreach (string word in words)
+                    {
+                        logger.Log(LogLevel.Debug, word);
+                    }
+                    logger.Log(LogLevel.Debug, Encoding.UTF8.GetString(bytes));
                     return;
                 }
                 words[0] = words[0].ToUpper();
@@ -137,6 +143,7 @@ class HttpClientMessage
             parts[0] = parts[0].Trim().ToLower();//根据https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Messages，不区分大小写
             parts[1] = parts[1].Trim();
             Headers[parts[0]] = parts[1];
+            Parsed_successfully = true;
         }
     }
     public string GetHeaderValue(string key)

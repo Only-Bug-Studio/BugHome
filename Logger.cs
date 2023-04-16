@@ -1,3 +1,4 @@
+using System.Diagnostics;
 //new bing 辅助
 enum LogLevel { Trace, Debug, Info, Warn, Error, Fatal }
 class Logger
@@ -37,13 +38,20 @@ class Logger
     // 定义一个方法，输出指定警告级别和内容的日志
     public void Log(LogLevel level, string message)
     {
+        if (level == LogLevel.Debug)
+        {
+            if (!Data.IsDEBUG)
+            {
+                return;
+            }
+        }
         // 获取当前时间和时区
-        var time = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+        var time = DateTimeOffset.Now.ToString("yyyy-MM-dd THH:mm:sszzz");
         // 设置控制台前景色
         SetConsoleColor(level);
         // 输出日志格式
         Console.WriteLine($"[{time}] {name} {level} \"{message}\"");
-        if(level==LogLevel.Fatal)
+        if (level == LogLevel.Fatal)
         {
             Console.WriteLine("The Program will exit after 10s!");
             Console.WriteLine("程序将在10秒后退出！");

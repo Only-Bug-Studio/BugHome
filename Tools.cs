@@ -2,7 +2,7 @@ using System.Text;
 //一些无法分类的函数就在这里
 class Tools
 {
-    public static bool ReadConfig(string fileName,char[] separator,int count ,out Dictionary<string, string> output)
+    public static bool ReadConfig(string fileName, char[] separator, int count, out Dictionary<string, string> output)
     {
         output = new Dictionary<string, string>();
         try
@@ -10,7 +10,10 @@ class Tools
             string[] lines = System.IO.File.ReadAllLines(fileName);
             foreach (string line in lines)
             {
-                string[] parts = line.Split(separator, count);
+                string line1 = line.Trim();
+                if (line1[0] == '#')
+                    continue;
+                string[] parts = line1.Split(separator, count);
                 parts[0] = parts[0].Trim();
                 parts[1] = parts[1].Trim();
                 output[parts[0]] = parts[1];
@@ -28,7 +31,7 @@ class Tools
         {
             string x = encoding.GetString(input);
             byte[] y = encoding.GetBytes(x);
-            if (Enumerable.SequenceEqual(input,y))
+            if (Enumerable.SequenceEqual(input, y))
             {
                 output = x;
                 return true;
