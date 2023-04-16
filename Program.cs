@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 class Program
 {
     static Thread web = new Thread(Web.WebMain);
