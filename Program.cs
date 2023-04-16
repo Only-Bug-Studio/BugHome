@@ -10,7 +10,6 @@ class Program
         setting.Load();
         logger.Log(LogLevel.Info, Translation.GetTranslation("main.welcome"));
         logger.Log(LogLevel.Info, Translation.GetTranslation("main.starting"));
-
         //线程处理
         web.Start();
         while (true)
