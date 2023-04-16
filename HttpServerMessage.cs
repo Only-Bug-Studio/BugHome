@@ -163,7 +163,7 @@ class HttpServerMessage
     {
         Version = newVersion;
     }
-    public byte[] GetBytes()
+    public byte[] ToBytes()
     {
         string startLine = $"{Version} {statusCode} {statusText}";
         string headers = "";

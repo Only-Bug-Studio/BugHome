@@ -1,2 +1,16 @@
+#语言
 language = zh-cn
-port = 8080
+#http端口
+http_port = 80
+#https端口,如果usingTLS为false则不会生效
+https_port = 443
+#启用TLS
+usingTLS = true
+#兼容HTTP协议,为true可以直接通信,为false则会先重定向到https,如果usingTLS为false则不会生效
+CompatibleWithHTTP = false
+#是否进行http协议的监听,如果关闭将不能用HTTP协议访问
+OpenHttp = true
+certificate = Access/test.pfx
+certificatePassword = TEST
+WaitTimeout = 5m
+WriteTimeout = 10s

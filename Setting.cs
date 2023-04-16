@@ -27,7 +27,7 @@ class Setting
         StreamWriter sw = new StreamWriter(fs);
         foreach (var item in settings)
         {
-            sw.WriteLine(item.Key + "=" + item.Value);
+            sw.WriteLine(item.Key + " = " + item.Value);
         }
         sw.Close();
         fs.Close();

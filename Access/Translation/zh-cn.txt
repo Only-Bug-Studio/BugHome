@@ -15,3 +15,7 @@ HttpServerMessage.notHttpMessage = 传入的字节不是http信息
 main.end = 程序结束了
 Web.portNotNum = 传入的端口非数字
 Web.Open = 网站服务已开启
+Web.Open.https = 网站服务(https)已开启
+Web.https.certError = 证书配置错误
+Web.Ssl.Error = 来自{0}的连接无法完成SSL加密
+Web.TimeoutError = 超时配置错误!
